@@ -1,13 +1,13 @@
-package com.example.prabhakarananbazhag.chart.Controller;
+package com.example.prabhakarananbazhag.chart.controller;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.prabhakarananbazhag.chart.Model.DonutChartData;
+import com.example.prabhakarananbazhag.chart.model.DonutChartData;
 import com.example.prabhakarananbazhag.chart.R;
-import com.example.prabhakarananbazhag.chart.View.DonutChartView;
+import com.example.prabhakarananbazhag.chart.view.DonutChartView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

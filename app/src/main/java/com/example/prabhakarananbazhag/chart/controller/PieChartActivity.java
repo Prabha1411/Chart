@@ -1,11 +1,11 @@
-package com.example.prabhakarananbazhag.chart.Controller;
+package com.example.prabhakarananbazhag.chart.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.prabhakarananbazhag.chart.Model.PieChartData;
+import com.example.prabhakarananbazhag.chart.model.PieChartData;
 import com.example.prabhakarananbazhag.chart.R;
-import com.example.prabhakarananbazhag.chart.View.PieChartView;
+import com.example.prabhakarananbazhag.chart.view.PieChartView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

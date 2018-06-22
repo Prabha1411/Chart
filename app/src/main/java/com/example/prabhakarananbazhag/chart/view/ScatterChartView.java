@@ -1,4 +1,4 @@
-package com.example.prabhakarananbazhag.chart.View;
+package com.example.prabhakarananbazhag.chart.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,22 +10,21 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.example.prabhakarananbazhag.chart.Model.BarChartData;
+import com.example.prabhakarananbazhag.chart.model.ScatterChartData;
 import com.example.prabhakarananbazhag.chart.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class BarChartView extends View {
+public class ScatterChartView extends View {
     Paint paint = new Paint();
     Paint point = new Paint();
     Paint plot = new Paint();
     Paint axis = new Paint();
     Paint coordinate = new Paint();
     Paint labels = new Paint();
-    Paint Bar=new Paint();
-    public BarChartView(Context context, @Nullable AttributeSet attrs) {
+    public ScatterChartView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         paint.setColor(Color.BLACK);
         point.setColor(Color.BLUE);
@@ -34,13 +33,13 @@ public class BarChartView extends View {
         coordinate.setColor(Color.MAGENTA);
         labels.setColor(Color.BLACK);
     }
-    public BarChartView(Context context) {
+    public ScatterChartView(Context context) {
         super(context);
 
     }
     // HashMap<String,ArrayList> cvalues;
-    BarChartData cvalues;
-    public  void setvalues(BarChartData cd) {
+    ScatterChartData cvalues;
+    public  void setvalues(ScatterChartData cd) {
         cvalues =cd;
         postInvalidate();
     }
@@ -55,7 +54,6 @@ public class BarChartView extends View {
             //..................Colours................
             ArrayList colours=new ArrayList();
             colours.addAll(cvalues.getColours());
-            String BarWidth=cvalues.getBarWidth();
 
             //  paint.setColor(Integer.parseInt((String) colours.get(0)));
             //..................Labels................
@@ -117,24 +115,20 @@ public class BarChartView extends View {
                     break;
             }
             //.........PLOTTING..............
-            plot(Xaxis,Yaxis,xplot,yplot,canvas,xc,yc,BarWidth,colours,length);
+            plot(Xaxis,Yaxis,xplot,yplot,canvas,xc,yc);
         } else {
             return;
         }
     }
-    private void plot(ArrayList xaxis, ArrayList yaxis,  HashMap xplot, HashMap yplot, Canvas canvas, int xc, int yc,String Barwidth,ArrayList Colours,int length) {
+    private void plot(ArrayList xaxis, ArrayList yaxis,  HashMap xplot, HashMap yplot, Canvas canvas, int xc, int yc) {
         int s=xaxis.size();
-        int width=Integer.parseInt(Barwidth)/2;
         if((xc==1)&&(yc==1)) { //X and Y String
             for (int j = 0; j < s; j++) {
                 String val1=(String) xaxis.get(j);
                 String val2=(String) yaxis.get(j);
                 Object xcc =  xplot.get(val1);
                 Object ycc =  yplot.get(val2);
-                // canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
-                Bar.setColor(Color.parseColor((String) Colours.get(j)));
-                canvas.drawRect((int) xcc-width,(int)ycc,(int) xcc+width,length-100,Bar);
-
+                canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
             }
         }
         if((xc==1)&&(yc==2)) {  //X String Y Float
@@ -147,10 +141,7 @@ public class BarChartView extends View {
                     String val1= (String) xaxis.get(j);
                     Object ycc =  yplot.get(new_value);
                     Object xcc =  xplot.get(val1);
-                    // canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
-                    Bar.setColor(Color.parseColor((String) Colours.get(j)));
-                    canvas.drawRect((int) xcc-width,(int)ycc,(int) xcc+width,length-100,Bar);
-
+                    canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
                 }
                 else {
                     float val;
@@ -189,10 +180,7 @@ public class BarChartView extends View {
                     val=(int)temp1+pixel_new;
                     String val1= (String) xaxis.get(j);
                     Object xcc_f =  xplot.get(val1);
-                    //   canvas.drawCircle((int)xcc_f,(int) val, 5, coordinate);
-                    Bar.setColor(Color.parseColor((String) Colours.get(j)));
-                    canvas.drawRect((int) xcc_f-width,(int)val,(int) xcc_f+width,length-100,Bar);
-
+                    canvas.drawCircle((int)xcc_f,(int) val, 5, coordinate);
                 }
             }
         }
@@ -207,10 +195,7 @@ public class BarChartView extends View {
                     String val2= (String) yaxis.get(j);
                     Object xcc =  xplot.get(new_value);
                     Object ycc =  yplot.get(val2);
-                    //canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
-                    Bar.setColor(Color.parseColor((String) Colours.get(j)));
-                    canvas.drawRect((int) xcc-width,(int)ycc,(int) xcc+width,length-100,Bar);
-
+                    canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
                 }
                 else {
                     float val;
@@ -248,9 +233,7 @@ public class BarChartView extends View {
                     val=(int)temp1+pixel_new;
                     String val2= (String) yaxis.get(j);
                     Object ycc_f =  yplot.get(val2);
-                    //canvas.drawCircle((int)val,(int) ycc_f, 5, coordinate);
-                    Bar.setColor(Color.parseColor((String) Colours.get(j)));
-                    canvas.drawRect((int) val-width,(int)ycc_f,(int) val+width,length-100,Bar);
+                    canvas.drawCircle((int)val,(int) ycc_f, 5, coordinate);
                 }
             }
         }
@@ -361,9 +344,7 @@ public class BarChartView extends View {
 
 
                 }
-                Bar.setColor(Color.parseColor((String) Colours.get(j)));
-                canvas.drawRect((int) xcc_f-width,(int)ycc_f,(int) xcc_f+width,length-100,Bar);
-
+                canvas.drawCircle((int) xcc_f, (int)ycc_f, 5, coordinate);
             }
         }
     }
@@ -612,5 +593,4 @@ public class BarChartView extends View {
         }
         return count;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.prabhakarananbazhag.chart.View;
+package com.example.prabhakarananbazhag.chart.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.prabhakarananbazhag.chart.Model.DonutChartData;
+import com.example.prabhakarananbazhag.chart.model.DonutChartData;
 
 import java.util.concurrent.TimeUnit;
 

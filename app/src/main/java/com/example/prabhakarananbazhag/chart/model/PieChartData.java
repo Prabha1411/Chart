@@ -1,13 +1,13 @@
-package com.example.prabhakarananbazhag.chart.Model;
+package com.example.prabhakarananbazhag.chart.model;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class PieChartData implements Serializable{
+public class PieChartData  implements ChartData, Serializable{
     public List<String> name;
     public List<Float> matches;
-    public List<String> color;
-    public PieChartData(List<String> name,  List<Float> matches, List<String> color) {
+    public List<Integer> color;
+    public PieChartData(List<Float> matches,List<String> name,   List<Integer> color) {
         this.name = name;
         this.matches = matches;
         this.color = color;
@@ -18,7 +18,7 @@ public class PieChartData implements Serializable{
     public List<Float> getMatches() {
         return matches;
     }
-    public List<String> getColor() {
+    public List<Integer> getColor() {
         return color;
     }
     public void setName(List<String> name) {
@@ -27,7 +27,7 @@ public class PieChartData implements Serializable{
     public void setMatches(List<Float> matches) {
         this.matches = matches;
     }
-    public void setColor(List<String> color) {
+    public void setColor(List<Integer> color) {
         this.color = color;
     }
 }

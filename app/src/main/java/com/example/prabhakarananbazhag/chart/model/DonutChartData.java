@@ -1,19 +1,16 @@
-package com.example.prabhakarananbazhag.chart.Model;
+package com.example.prabhakarananbazhag.chart.model;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class DonutChartData implements Serializable {
+public class DonutChartData extends PieChartData implements Serializable {
     int donutWidth;
-    List<Float> percentage;
-    List<String> fieldName;
-    List<Integer> colors;
+
 
     public DonutChartData(int donutWidth, List<Float> percentage, List<String> fieldName,List<Integer> colors) {
+        super(percentage,fieldName,colors);
         this.donutWidth = donutWidth;
-        this.percentage = percentage;
-        this.fieldName = fieldName;
-        this.colors=colors;
+
     }
 
     public int getDonutWidth() {
@@ -25,27 +22,27 @@ public class DonutChartData implements Serializable {
     }
 
     public List<Float> getPercentage() {
-        return percentage;
+        return matches;
     }
 
     public void setPercentage(List<Float> percentage) {
-        this.percentage = percentage;
+        this.matches = percentage;
     }
 
     public List<String> getFieldName() {
-        return fieldName;
+        return name;
     }
 
     public void setFieldName(List<String> fieldName) {
-        this.fieldName = fieldName;
+        this.name = fieldName;
     }
 
     public List<Integer>  getColors() {
-        return colors;
+        return color;
     }
 
     public void setColors(List<Integer> colors) {
-        this.colors = colors;
+        this.color = colors;
     }
 
 

@@ -1,12 +1,12 @@
-package com.example.prabhakarananbazhag.chart.Controller;
+package com.example.prabhakarananbazhag.chart.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.prabhakarananbazhag.chart.Model.ScatterChartData;
+import com.example.prabhakarananbazhag.chart.model.LineChartData;
 import com.example.prabhakarananbazhag.chart.R;
-import com.example.prabhakarananbazhag.chart.View.ScatterChartView;
+import com.example.prabhakarananbazhag.chart.view.LineChartView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,24 +15,23 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class ScatterChartActivity extends AppCompatActivity {
+public class LineChartActivity extends AppCompatActivity{
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scatter_chart_activity);
-        ScatterChartView dl = (ScatterChartView) findViewById(R.id.scatter);
+        setContentView(R.layout.line_chart_activity);
+        LineChartView dl = (LineChartView) findViewById(R.id.line);
         dl.setvalues(getjson());
     }
-    public ScatterChartData getjson() {
+    public LineChartData getjson() {
         //HashMap details=new HashMap<String,ArrayList>();
         ArrayList Xaxis = new ArrayList();
         ArrayList Yaxis = new ArrayList();
         ArrayList label = new ArrayList();
         ArrayList colours = new ArrayList();
-        ScatterChartData detail = null;
+        LineChartData detail = null;
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray plot_array = obj.getJSONArray("plot");
@@ -57,7 +56,7 @@ public class ScatterChartActivity extends AppCompatActivity {
                 colours.add(colour_name);
             }
 
-            detail = new ScatterChartData(Xaxis, Yaxis, label, colours);
+            detail = new LineChartData(Xaxis, Yaxis, label, colours);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -67,7 +66,7 @@ public class ScatterChartActivity extends AppCompatActivity {
     public String loadJSONFromAsset() {
         String json = null;
         try {
-            InputStream is = getAssets().open("details.json");
+            InputStream is = getAssets().open("Linedetails.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

@@ -1,13 +1,12 @@
-package com.example.prabhakarananbazhag.chart.Controller;
-
+package com.example.prabhakarananbazhag.chart.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.prabhakarananbazhag.chart.Model.BarChartData;
+import com.example.prabhakarananbazhag.chart.model.ScatterChartData;
 import com.example.prabhakarananbazhag.chart.R;
-import com.example.prabhakarananbazhag.chart.View.BarChartView;
+import com.example.prabhakarananbazhag.chart.view.ScatterChartView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,23 +16,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class BarChartActivity extends AppCompatActivity {
+public class ScatterChartActivity extends AppCompatActivity {
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bar_chart_activity);
-        BarChartView dl = (BarChartView) findViewById(R.id.bar);
+        setContentView(R.layout.scatter_chart_activity);
+        ScatterChartView dl = (ScatterChartView) findViewById(R.id.scatter);
         dl.setvalues(getjson());
     }
-    public BarChartData getjson() {
+    public ScatterChartData getjson() {
         //HashMap details=new HashMap<String,ArrayList>();
         ArrayList Xaxis = new ArrayList();
         ArrayList Yaxis = new ArrayList();
         ArrayList label = new ArrayList();
         ArrayList colours = new ArrayList();
-        BarChartData detail = null;
-        String BarWidth=new String();
+        ScatterChartData detail = null;
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray plot_array = obj.getJSONArray("plot");
@@ -57,13 +55,8 @@ public class BarChartActivity extends AppCompatActivity {
                 String colour_name = colours_array_inside.getString("color");
                 colours.add(colour_name);
             }
-            JSONArray width_array = obj.getJSONArray("Barwidth");
-            for (int i = 0; i < width_array.length(); i++) {
-                JSONObject width_array_inside = width_array.getJSONObject(i);
-                BarWidth = width_array_inside.getString("width");
-            }
 
-            detail = new BarChartData(Xaxis, Yaxis, label, colours,BarWidth);
+            detail = new ScatterChartData(Xaxis, Yaxis, label, colours);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -73,7 +66,7 @@ public class BarChartActivity extends AppCompatActivity {
     public String loadJSONFromAsset() {
         String json = null;
         try {
-            InputStream is = getAssets().open("Bar.json");
+            InputStream is = getAssets().open("details.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -85,6 +78,4 @@ public class BarChartActivity extends AppCompatActivity {
         }
         return json;
     }
-
-
 }
