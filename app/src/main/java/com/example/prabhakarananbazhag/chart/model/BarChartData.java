@@ -1,14 +1,15 @@
 package com.example.prabhakarananbazhag.chart.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BarChartData extends AxisChartData {
 
     String BarWidth;
 
 
-    public BarChartData(ArrayList xaxis, ArrayList yaxis, ArrayList label, ArrayList colours,String BarWidth) {
-        super(xaxis,yaxis,label,colours);
+    public BarChartData(HashMap datas, ArrayList label, ArrayList colours, String BarWidth) {
+        super(datas,label,colours);
         this.BarWidth=BarWidth;
     }
 

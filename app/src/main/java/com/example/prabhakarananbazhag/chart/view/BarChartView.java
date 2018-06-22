@@ -15,6 +15,7 @@ import com.example.prabhakarananbazhag.chart.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class BarChartView extends View {
@@ -60,7 +61,7 @@ public class BarChartView extends View {
             //  paint.setColor(Integer.parseInt((String) colours.get(0)));
             //..................Labels................
             ArrayList Labels=new ArrayList();
-            Labels.addAll(cvalues.getLabel());
+            Labels.addAll(cvalues.getLabels());
             size = getResources().getDimensionPixelSize(R.dimen.myFontSize);
             point.setTextSize(size);
             labels.setTextSize(size);
@@ -78,10 +79,12 @@ public class BarChartView extends View {
             int breadth_dec=breadth/20;
             canvas.drawRect(100, 100, breadth-100, length-100,paint);
             //.............Xarray and Yarray Creation................
+            HashMap datas=new HashMap();
+            datas=cvalues.getDatas();
             ArrayList Xaxis=new ArrayList();
-            Xaxis.addAll(cvalues.getXaxis());
+            Xaxis.addAll((Collection) datas.get("Xaxis"));
             ArrayList Yaxis=new ArrayList();
-            Yaxis.addAll(cvalues.getYaxis());
+            Yaxis.addAll((Collection) datas.get("Yaxis"));
             //.............XFormat Checking.............
             String xcheck=(String) Xaxis.get(0);
             int check=xFormat(xcheck);

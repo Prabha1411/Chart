@@ -71,7 +71,7 @@ public class DonutChartView extends View {
             int sweepCount=0;
 
             for (int i = 0; i < data.getPercentage().size(); i++) {
-                paint.setColor(data.getColors().get(i));
+                paint.setColor(Integer.parseInt(data.getColors().get(i)));
                 currentSweep = (data.getPercentage().get(i) / totalValues) * 360;
                 float currentArc = currentStartArcPosition;
                 rect.set(midx - radius +(data.getDonutWidth()/2f), midy - radius+(data.getDonutWidth()/2f) , midx + radius-(data.getDonutWidth()/2f), midy + radius-(data.getDonutWidth()/2f));

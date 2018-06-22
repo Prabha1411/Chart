@@ -1,34 +1,19 @@
 package com.example.prabhakarananbazhag.chart.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AxisChartData implements ChartData {
-    private ArrayList xAxis;
-    private ArrayList yAxis;
+    private HashMap datas;
     private ArrayList labels;
     private ArrayList colours;
 
-    public AxisChartData(ArrayList xaxis, ArrayList yaxis, ArrayList label, ArrayList colours) {
-        this.xAxis = xaxis;
-        this.yAxis = yaxis;
-        this.labels = label;
-        this.colours = colours;
+    public HashMap getDatas() {
+        return datas;
     }
 
-    public ArrayList getxAxis() {
-        return xAxis;
-    }
-
-    public void setxAxis(ArrayList xAxis) {
-        this.xAxis = xAxis;
-    }
-
-    public ArrayList getyAxis() {
-        return yAxis;
-    }
-
-    public void setyAxis(ArrayList yAxis) {
-        this.yAxis = yAxis;
+    public void setDatas(HashMap datas) {
+        this.datas = datas;
     }
 
     public ArrayList getLabels() {
@@ -44,6 +29,14 @@ public class AxisChartData implements ChartData {
     }
 
     public void setColours(ArrayList colours) {
+        this.colours = colours;
+    }
+
+
+
+    public AxisChartData(HashMap datas, ArrayList labels, ArrayList colours) {
+        this.datas = datas;
+        this.labels = labels;
         this.colours = colours;
     }
 }

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BarChartActivity extends AppCompatActivity {
     @Override
@@ -27,7 +28,7 @@ public class BarChartActivity extends AppCompatActivity {
         dl.setvalues(getjson());
     }
     public BarChartData getjson() {
-        //HashMap details=new HashMap<String,ArrayList>();
+        HashMap datas=new HashMap<String,ArrayList>();
         ArrayList Xaxis = new ArrayList();
         ArrayList Yaxis = new ArrayList();
         ArrayList label = new ArrayList();
@@ -63,7 +64,10 @@ public class BarChartActivity extends AppCompatActivity {
                 BarWidth = width_array_inside.getString("width");
             }
 
-            detail = new BarChartData(Xaxis, Yaxis, label, colours,BarWidth);
+            datas.put("Xaxis",Xaxis);
+            datas.put("Yaxis",Yaxis);
+
+            detail = new BarChartData(datas, label, colours,BarWidth);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -49,7 +49,7 @@ public class PieChartView extends View{
             RectF rectF = new RectF(z,z,x,y);
             RectF rectF1=new RectF(w,w,x+w,y+w);
             for(int i=0;i<pieChartData.getMatches().size();++i){
-                paint.setColor(Color.parseColor(pieChartData.getColor().get(i)));
+                paint.setColor(Color.parseColor(String.valueOf(pieChartData.getColor().get(i))));
                 Path p2=new Path();
                 canvas.drawArc(rectF, start, sweep[i], true, paint);
                 p2.addArc(rectF,start,sweep[i]);

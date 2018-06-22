@@ -45,10 +45,10 @@ public class PieChartActivity extends AppCompatActivity {
                 String colour_value=jo_inside.getString("colour");
                 name.add(name_value);
                 matches.add(Float.valueOf(matches_value));
-                color.add(colour_value);
+                color.add(String.valueOf((colour_value)));
 
             }
-            pieChartData=new PieChartData(name,matches,color);
+            pieChartData=new PieChartData(matches,name,color);
         } catch (JSONException e) {
             e.printStackTrace();
         }

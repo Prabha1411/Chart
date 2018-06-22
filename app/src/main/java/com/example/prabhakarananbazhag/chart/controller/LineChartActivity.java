@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.prabhakarananbazhag.chart.model.LineChartData;
 import com.example.prabhakarananbazhag.chart.R;
+import com.example.prabhakarananbazhag.chart.model.ScatterChartData;
 import com.example.prabhakarananbazhag.chart.view.LineChartView;
 
 import org.json.JSONArray;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LineChartActivity extends AppCompatActivity{
     @Override
@@ -26,7 +28,7 @@ public class LineChartActivity extends AppCompatActivity{
         dl.setvalues(getjson());
     }
     public LineChartData getjson() {
-        //HashMap details=new HashMap<String,ArrayList>();
+        HashMap datas=new HashMap<String,ArrayList>();
         ArrayList Xaxis = new ArrayList();
         ArrayList Yaxis = new ArrayList();
         ArrayList label = new ArrayList();
@@ -56,7 +58,10 @@ public class LineChartActivity extends AppCompatActivity{
                 colours.add(colour_name);
             }
 
-            detail = new LineChartData(Xaxis, Yaxis, label, colours);
+            datas.put("Xaxis",Xaxis);
+            datas.put("Yaxis",Yaxis);
+
+            detail = new LineChartData(datas, label, colours);
 
         } catch (JSONException e) {
             e.printStackTrace();

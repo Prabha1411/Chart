@@ -7,7 +7,7 @@ public class DonutChartData extends PieChartData implements Serializable {
     int donutWidth;
 
 
-    public DonutChartData(int donutWidth, List<Float> percentage, List<String> fieldName,List<Integer> colors) {
+    public DonutChartData(int donutWidth, List<Float> percentage, List<String> fieldName,List<String> colors) {
         super(percentage,fieldName,colors);
         this.donutWidth = donutWidth;
 
@@ -37,11 +37,11 @@ public class DonutChartData extends PieChartData implements Serializable {
         this.name = fieldName;
     }
 
-    public List<Integer>  getColors() {
+    public List<String>  getColors() {
         return color;
     }
 
-    public void setColors(List<Integer> colors) {
+    public void setColors(List<String> colors) {
         this.color = colors;
     }
 

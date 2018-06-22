@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScatterChartActivity extends AppCompatActivity {
     @Override
@@ -26,7 +27,7 @@ public class ScatterChartActivity extends AppCompatActivity {
         dl.setvalues(getjson());
     }
     public ScatterChartData getjson() {
-        //HashMap details=new HashMap<String,ArrayList>();
+        HashMap datas=new HashMap<String,ArrayList>();
         ArrayList Xaxis = new ArrayList();
         ArrayList Yaxis = new ArrayList();
         ArrayList label = new ArrayList();
@@ -56,8 +57,10 @@ public class ScatterChartActivity extends AppCompatActivity {
                 colours.add(colour_name);
             }
 
-            detail = new ScatterChartData(Xaxis, Yaxis, label, colours);
+            datas.put("Xaxis",Xaxis);
+            datas.put("Yaxis",Yaxis);
 
+            detail = new ScatterChartData(datas, label, colours);
         } catch (JSONException e) {
             e.printStackTrace();
         }

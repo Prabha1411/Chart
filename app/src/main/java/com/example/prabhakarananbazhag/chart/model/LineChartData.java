@@ -2,10 +2,11 @@ package com.example.prabhakarananbazhag.chart.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LineChartData extends AxisChartData implements Serializable{
 
-    public LineChartData(ArrayList xaxis, ArrayList yaxis, ArrayList label, ArrayList colours) {
-        super(xaxis, yaxis, label, colours);
+    public LineChartData(HashMap datas, ArrayList label, ArrayList colours) {
+        super(datas, label, colours);
     }
 }

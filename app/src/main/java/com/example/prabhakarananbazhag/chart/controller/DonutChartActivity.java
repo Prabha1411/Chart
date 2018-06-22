@@ -48,7 +48,7 @@ public class DonutChartActivity extends AppCompatActivity {
     public DonutChartData getjson() {
         List<Float> percentage = new ArrayList<>();
         List<String> fieldname = new ArrayList<>();
-        List<Integer> colors = new ArrayList<>();
+        List<String> colors = new ArrayList<>();
 
         DonutChartData donutGraphData = null;
         try {
@@ -64,7 +64,7 @@ public class DonutChartActivity extends AppCompatActivity {
                 String color = jo_inside.getString("field_color");
                 percentage.add(Float.valueOf(value));
                 fieldname.add(name);
-                colors.add(Color.parseColor(color));
+                colors.add(String.valueOf(Color.parseColor(color)));
             }
             donutGraphData = new DonutChartData(obj.getInt("width"), percentage, fieldname, colors);
         } catch (JSONException e) {
