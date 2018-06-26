@@ -1,25 +1,21 @@
 package com.example.prabhakarananbazhag.chart.controller;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.prabhakarananbazhag.chart.model.DonutChartData;
 import com.example.prabhakarananbazhag.chart.R;
+import com.example.prabhakarananbazhag.chart.model.DonutChartData;
+import com.example.prabhakarananbazhag.chart.model.PieChartData;
 import com.example.prabhakarananbazhag.chart.view.DonutChartView;
+import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DonutChartActivity extends AppCompatActivity {
     @Override
@@ -27,8 +23,11 @@ public class DonutChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donut_chart_activity);
         DonutChartView view = (DonutChartView) findViewById(R.id.donut_graph);
-        view.setDonutGraphValues(getjson());
-        view.start(getjson().getPercentage().size());
+
+            view.setDonutGraphValues(getjson());
+
+            view.start(getjson().getField().size());
+
     }
 
     private static String getValue(String tag, Element element) {
@@ -45,10 +44,10 @@ public class DonutChartActivity extends AppCompatActivity {
         return px / context.getResources().getDisplayMetrics().density;
     }
 
-    public DonutChartData getjson() {
+  /*  public DonutChartData getjson() {
         List<Float> percentage = new ArrayList<>();
         List<String> fieldname = new ArrayList<>();
-        List<String> colors = new ArrayList<>();
+        List<Integer> colors = new ArrayList<>();
 
         DonutChartData donutGraphData = null;
         try {
@@ -64,7 +63,7 @@ public class DonutChartActivity extends AppCompatActivity {
                 String color = jo_inside.getString("field_color");
                 percentage.add(Float.valueOf(value));
                 fieldname.add(name);
-                colors.add(String.valueOf(Color.parseColor(color)));
+                colors.add((Color.parseColor(color)));
             }
             donutGraphData = new DonutChartData(obj.getInt("width"), percentage, fieldname, colors);
         } catch (JSONException e) {
@@ -89,5 +88,23 @@ public class DonutChartActivity extends AppCompatActivity {
         }
         return json;
     }
+*/
+  public DonutChartData getjson()  {
+  String json = null;
+        try {
+        InputStream inputStream = getAssets().open("donut_graph.json");
+        int size = inputStream.available();
+        byte[] buffer = new byte[size];
+        inputStream.read(buffer);
+        inputStream.close();
+        json = new String(buffer, "UTF-8");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    Gson gson=new Gson();
+    DonutChartData bar = gson.fromJson(json,DonutChartData.class);
+        return bar;
 
+
+}
 }

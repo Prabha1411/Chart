@@ -1,5 +1,6 @@
 package com.example.prabhakarananbazhag.chart.controller;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +28,8 @@ public class ScatterChartActivity extends AppCompatActivity {
         dl.setvalues(getjson());
     }
     public ScatterChartData getjson() {
-        HashMap datas=new HashMap<String,ArrayList>();
+        Point datas= new Point();
+        //  HashMap datas=new HashMap<String,ArrayList>();
         ArrayList Xaxis = new ArrayList();
         ArrayList Yaxis = new ArrayList();
         ArrayList label = new ArrayList();
@@ -57,8 +59,8 @@ public class ScatterChartActivity extends AppCompatActivity {
                 colours.add(colour_name);
             }
 
-            datas.put("Xaxis",Xaxis);
-            datas.put("Yaxis",Yaxis);
+            obj.put("Xaxis",Xaxis);
+            obj.put("Yaxis",Yaxis);
 
             detail = new ScatterChartData(datas, label, colours);
         } catch (JSONException e) {

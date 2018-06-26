@@ -1,6 +1,7 @@
 package com.example.prabhakarananbazhag.chart.controller;
 
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BarChartActivity extends AppCompatActivity {
     @Override
@@ -28,9 +30,11 @@ public class BarChartActivity extends AppCompatActivity {
         dl.setvalues(getjson());
     }
     public BarChartData getjson() {
-        HashMap datas=new HashMap<String,ArrayList>();
-        ArrayList Xaxis = new ArrayList();
-        ArrayList Yaxis = new ArrayList();
+       Point datas = new Point();
+        //HashMap datas=new HashMap<String,ArrayList>();
+    ArrayList Xaxis = new ArrayList();
+     ArrayList Yaxis = new ArrayList();
+
         ArrayList label = new ArrayList();
         ArrayList colours = new ArrayList();
         BarChartData detail = null;
@@ -64,8 +68,9 @@ public class BarChartActivity extends AppCompatActivity {
                 BarWidth = width_array_inside.getString("width");
             }
 
-            datas.put("Xaxis",Xaxis);
-            datas.put("Yaxis",Yaxis);
+            plot_array.put(Xaxis);
+            plot_array.put(Yaxis);
+            //datas.put("Yaxis",Yaxis);
 
             detail = new BarChartData(datas, label, colours,BarWidth);
 

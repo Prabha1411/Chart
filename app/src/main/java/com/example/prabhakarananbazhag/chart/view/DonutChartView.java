@@ -65,16 +65,16 @@ public class DonutChartView extends View {
             if (midx < midy) radius = midx;
             else radius = midy;
             radius = radius - shadowWidth;
-            paint.setStrokeWidth(data.getDonutWidth());
+            paint.setStrokeWidth( data.getWidth());
             paint.setStyle(Paint.Style.STROKE);
             currentStartArcPosition=0f;
             int sweepCount=0;
 
-            for (int i = 0; i < data.getPercentage().size(); i++) {
-                paint.setColor(Integer.parseInt(data.getColors().get(i)));
-                currentSweep = (data.getPercentage().get(i) / totalValues) * 360;
+            for (int i = 0; i < data.getField().size(); i++) {
+                paint.setColor(Color.parseColor(String.valueOf(data.getField().get(i).getField_color())));
+                currentSweep = (data.getField().get(i).getField_value() / totalValues) * 360;
                 float currentArc = currentStartArcPosition;
-                rect.set(midx - radius +(data.getDonutWidth()/2f), midy - radius+(data.getDonutWidth()/2f) , midx + radius-(data.getDonutWidth()/2f), midy + radius-(data.getDonutWidth()/2f));
+                rect.set(midx - radius +(data.getWidth()/2f), midy - radius+(data.getWidth()/2f) , midx + radius-(data.getWidth()/2f), midy + radius-(data.getWidth()/2f));
                 for (float sweep = 1; sweep <= currentSweep; sweep++) {
                     if(sweepCount>=no_of_iteration){
                         break;
@@ -89,19 +89,19 @@ public class DonutChartView extends View {
                 if(currentStartArcPosition+currentSweep<=no_of_iteration){
 
                     Path p1=new Path();
-                    rect.set(midx-radius+(data.getDonutWidth()/1.5f),
-                            midy-radius+(data.getDonutWidth()/1.5f),midx+radius-(data.getDonutWidth()/1.5f),midy+radius-(data.getDonutWidth()/1.5f));
+                    rect.set(midx-radius+(data.getWidth()/1.5f),
+                            midy-radius+(data.getWidth()/1.5f),midx+radius-(data.getWidth()/1.5f),midy+radius-(data.getWidth()/1.5f));
 
                     drawArcLocal(p1,currentSweep,currentStartArcPosition,currentSweep);
                     PathMeasure pm=new PathMeasure(p1,false);
 
                     textPaint.setColor(Color.BLACK);
-                    textSizeCalcualtor(data.getFieldName().get(i),pm,data.getDonutWidth()/4);
-                    canvas.drawTextOnPath(data.getFieldName().get(i),p1,(int)(pm.getLength()-textPaint.measureText(data.getFieldName().get(i)))/2,-data.getDonutWidth()/5,textPaint);
+                    textSizeCalcualtor(data.getField().get(i).getField_name(),pm,data.getWidth()/4);
+                    canvas.drawTextOnPath(data.getField().get(i).getField_name(),p1,(int)(pm.getLength()-textPaint.measureText(data.getField().get(i).getField_name()))/2,-data.getWidth()/5,textPaint);
 
                     textPaint.setColor(Color.RED);
-                    textSizeCalcualtor(String.valueOf(data.getPercentage().get(i)),pm,data.getDonutWidth()/4);
-                    canvas.drawTextOnPath(String.valueOf(data.getPercentage().get(i)),p1,(int)(pm.getLength()-textPaint.measureText(String.valueOf(data.getPercentage().get(i))))/2,data.getDonutWidth()/4,textPaint);
+                    textSizeCalcualtor(String.valueOf(data.getField().get(i).getField_value()),pm,data.getWidth()/4);
+                    canvas.drawTextOnPath(String.valueOf(data.getField().get(i).getField_value()),p1,(int)(pm.getLength()-textPaint.measureText(String.valueOf(data.getField().get(i).getField_value())))/2,data.getWidth()/4,textPaint);
                     p1.close();
                 }
                 currentStartArcPosition=currentStartArcPosition+currentSweep;
@@ -140,9 +140,10 @@ public class DonutChartView extends View {
 
     public void setDonutGraphValues( DonutChartData donutGraphData){
         data=donutGraphData;
+        postInvalidate();
         totalValues=0;
-        for(int i=0;i<data.getPercentage().size();i++){
-            totalValues+=data.getPercentage().get(i);
+        for(int i=0;i<data.getField().size();i++){
+            totalValues+=data.getField().get(i).getField_value();
         }
         init(null);
     }

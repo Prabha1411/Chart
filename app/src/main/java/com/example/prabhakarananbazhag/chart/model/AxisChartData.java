@@ -1,18 +1,20 @@
 package com.example.prabhakarananbazhag.chart.model;
 
+import android.graphics.Point;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AxisChartData implements ChartData {
-    private HashMap datas;
+    private Point datas;
     private ArrayList labels;
     private ArrayList colours;
 
-    public HashMap getDatas() {
+    public Point getDatas() {
         return datas;
     }
 
-    public void setDatas(HashMap datas) {
+    public void setDatas(Point datas) {
         this.datas = datas;
     }
 
@@ -34,7 +36,7 @@ public class AxisChartData implements ChartData {
 
 
 
-    public AxisChartData(HashMap datas, ArrayList labels, ArrayList colours) {
+    public AxisChartData(Point datas, ArrayList labels, ArrayList colours) {
         this.datas = datas;
         this.labels = labels;
         this.colours = colours;

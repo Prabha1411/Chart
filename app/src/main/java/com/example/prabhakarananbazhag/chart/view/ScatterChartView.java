@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -77,12 +78,14 @@ public class ScatterChartView extends View {
             int breadth_dec=breadth/20;
             canvas.drawRect(100, 100, breadth-100, length-100,paint);
             //.............Xarray and Yarray Creation................
-            HashMap datas=new HashMap();
+            Point datas=new Point();
             datas=cvalues.getDatas();
             ArrayList Xaxis=new ArrayList();
-            Xaxis.addAll((Collection) datas.get("Xaxis"));
+            Xaxis.add(datas);
+           // Xaxis.addAll((Collection) datas.get("Xaxis"));
             ArrayList Yaxis=new ArrayList();
-            Yaxis.addAll((Collection) datas.get("Yaxis"));
+           Yaxis.add(datas);
+            // Yaxis.addAll((Collection) datas.get("Yaxis"));
             //.............XFormat Checking.............
             String xcheck=(String) Xaxis.get(0);
             int check=xFormat(xcheck);

@@ -4,30 +4,53 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PieChartData  implements ChartData, Serializable{
-    public List<String> name;
-    public List<Float> matches;
-    public List<String> color;
-    public PieChartData(List<Float> matches,List<String> name,   List<String> color) {
-        this.name = name;
-        this.matches = matches;
-        this.color = color;
+
+  private List<Team> team;
+
+
+
+    public List<Team> getTeam() {
+        return team;
     }
-    public List<String> getName() {
-        return name;
+
+    public void setTeam(List<Team> team) {
+        this.team = team;
     }
-    public List<Float> getMatches() {
-        return matches;
+
+
+
+    public  class Team {
+        public Float matches;
+        public String name;
+        public String  colour;
+
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Float getMatches() {
+            return matches;
+        }
+
+        public void setMatches(Float matches) {
+            this.matches = matches;
+        }
+
+        public String getColour() {
+            return colour;
+        }
+
+        public void setColour(String colour) {
+            this.colour = colour;
+        }
+
+
     }
-    public List<String> getColor() {
-        return color;
-    }
-    public void setName(List<String> name) {
-        this.name = name;
-    }
-    public void setMatches(List<Float> matches) {
-        this.matches = matches;
-    }
-    public void setColor(List<String> color) {
-        this.color = color;
-    }
+
+
 }
