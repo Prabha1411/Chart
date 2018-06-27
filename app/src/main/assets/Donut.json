@@ -2,15 +2,15 @@
 
 {
   "width": 200,
-  "field": [
+  "data": [
     {
-      "field_name": "Design",
-      "field_value": 200,
-      "field_color": "#BAF0AD"
+      "x": "Design",
+      "y": 200,
+      "colour": "#BAF0AD"
     },
     {
-      "field_name": "AI",
-      "field_value": 300,
+      "x": "AI",
+      "y": 300,
       "field_color": "#E7E247"
     },
     {

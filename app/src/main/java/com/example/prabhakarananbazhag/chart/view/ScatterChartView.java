@@ -1,5 +1,4 @@
 package com.example.prabhakarananbazhag.chart.view;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,35 +10,30 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.example.prabhakarananbazhag.chart.model.BarChartData;
+import com.example.prabhakarananbazhag.chart.model.LineChartData;
 import com.example.prabhakarananbazhag.chart.model.ScatterChartData;
-import com.example.prabhakarananbazhag.chart.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
 public class ScatterChartView extends View {
-    Paint paint = new Paint();
-    Paint point = new Paint();
+    Paint lines=new Paint();
     Paint plot = new Paint();
-    Paint axis = new Paint();
-    Paint coordinate = new Paint();
+    Paint scale = new Paint();
+    Paint coordinate_point = new Paint();
     Paint labels = new Paint();
+    Paint paint=new Paint();
+
     public ScatterChartView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        paint.setColor(Color.BLACK);
-        point.setColor(Color.BLUE);
-        plot.setColor(Color.BLACK);
-        axis.setColor(Color.RED);
-        coordinate.setColor(Color.MAGENTA);
-        labels.setColor(Color.BLACK);
     }
     public ScatterChartView(Context context) {
         super(context);
 
     }
-    // HashMap<String,ArrayList> cvalues;
     ScatterChartData cvalues;
     public  void setvalues(ScatterChartData cd) {
         cvalues =cd;
@@ -49,74 +43,119 @@ public class ScatterChartView extends View {
     public void onDraw(Canvas canvas) {
         if (cvalues != null) {
             //.........................Canvas Attributes..................
-            int length= canvas.getHeight();
-            int breadth=canvas.getWidth();
-            int size = getResources().getDimensionPixelSize(R.dimen.myFontSize);
-            axis.setTextSize(size);
-            //..................Colours................
-            ArrayList colours=new ArrayList();
-            colours.addAll(cvalues.getColours());
+            int length = canvas.getHeight();
+            int breadth = canvas.getWidth();
+            int len_dec = length / 10;
+            int bre_dec = breadth / 10;
+            int dec;
+            if(len_dec>bre_dec)
+            {
+                dec=len_dec;
+            }
+            else if(bre_dec>len_dec)
+            {
+                dec=bre_dec;
+            }
+            else
+            {
+                dec=bre_dec;
+            }
+            Log.i("String dec", String.valueOf(dec));
+            ///    int size = getResources().getDimensionPixelSize(R.dimen.myFontSize);
+            //     axis.setTextSize(size);
 
-            //  paint.setColor(Integer.parseInt((String) colours.get(0)));
+            //..................Colours................
+            ArrayList Colours=new ArrayList();
+
+            for( ScatterChartData.Colours c:cvalues.getColours()) {
+                Colours.add(c.getColor());
+            }
+           /* lines.setColor(Color.parseColor((String)Colours.get(0)));
+            coordinate_point.setColor(Color.parseColor((String)Colours.get(1)));
+            plot.setColor(Color.parseColor((String)Colours.get(2)));
+            scale.setColor(Color.parseColor((String)Colours.get(3)));
+            labels.setColor(Color.parseColor((String)Colours.get(4)));*/
+
+            lines.setColor(Color.BLACK);
+            coordinate_point.setColor(Color.GRAY);
+            plot.setColor(Color.MAGENTA);
+            scale.setColor(Color.RED);
+            labels.setColor(Color.RED);
+
+
+
             //..................Labels................
             ArrayList Labels=new ArrayList();
-            Labels.addAll(cvalues.getLabels());
-            size = getResources().getDimensionPixelSize(R.dimen.myFontSize);
-            point.setTextSize(size);
+            for( BarChartData.Labels l:cvalues.getLabel()) {
+                Labels.add(l.getTitle());
+            }
+            labels.setTextAlign(Paint.Align.CENTER);
+            int size=getWidth()/30;
+            int size1=dec/4;
             labels.setTextSize(size);
-            canvas.drawText((String) Labels.get(0), breadth/2-150, 30, point);
-            canvas.drawText((String) Labels.get(1), breadth/2-100, 70, point);
+            labels.setTextSize(size1);
+            canvas.drawText((String) Labels.get(0), breadth/2, size1, labels);
+            int size2=dec/6;
+            labels.setTextSize(size1);
+            canvas.drawText((String) Labels.get(1), breadth/2, size1*3, labels);
             Path path = new Path();
-            path.moveTo(length-50,length/2);
+            path.moveTo(length-(2*size),length/2);
             path.lineTo(length-50,length/2-100);
-            canvas.drawPath(path, point);
-            canvas.drawTextOnPath((String) Labels.get(2),path,0,0,point);
+            canvas.drawPath(path, labels);
+            canvas.drawTextOnPath((String) Labels.get(2),path,0,0,labels);
             //...............Rectangle Creation..............
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.STROKE);
             int length_dec=length/20;
             int breadth_dec=breadth/20;
-            canvas.drawRect(100, 100, breadth-100, length-100,paint);
+
+            canvas.drawRect(dec, dec, breadth-dec, length-dec,paint);
             //.............Xarray and Yarray Creation................
-            Point datas=new Point();
-            datas=cvalues.getDatas();
             ArrayList Xaxis=new ArrayList();
-            Xaxis.add(datas);
-           // Xaxis.addAll((Collection) datas.get("Xaxis"));
             ArrayList Yaxis=new ArrayList();
-           Yaxis.add(datas);
-            // Yaxis.addAll((Collection) datas.get("Yaxis"));
+            //............Fetching Values Using For Each...................//
+            for( ScatterChartData.Xplot x:cvalues.getXaxisplot())
+            {
+                Xaxis.add(x.getXaxis_point());
+            }
+
+            for( ScatterChartData.Yplot y:cvalues.getYaxisplot())
+            {
+                Yaxis.add(y.getYaxis_points());
+            }
             //.............XFormat Checking.............
-            String xcheck=(String) Xaxis.get(0);
+            String xcheck= String.valueOf(Xaxis.get(0));
+            float q=paint.measureText(String.valueOf(xcheck));
+            Log.i("St", String.valueOf(q));
             int check=xFormat(xcheck);
             int xc=0;
             HashMap xplot=new HashMap();
             switch (check)
             {
                 case 0:
-                    xplot=xString(Xaxis,canvas,length,breadth);
+                    xplot=xString(Xaxis,canvas,length,breadth,dec);
                     xc=1;
                     break;
                 default:
                     Log.i("scale","Integer");
-                    xplot=xNumber(Xaxis,canvas,length,breadth);
+                    xplot=xNumber(Xaxis,canvas,length,breadth,dec);
                     xc=2;
                     break;
             }
             //.............YFormat Checking.............
-            String ycheck=(String) Yaxis.get(0);
+            String ycheck= String.valueOf(Yaxis.get(0));
             int checky=yFormat(ycheck);
             int yc=0;
             HashMap yplot=new HashMap();
             switch (checky)
             {
                 case 0:
-                    yplot=yString(Yaxis,canvas,length,breadth);
+                    yplot=yString(Yaxis,canvas,length,breadth,dec);
                     yc=1;
                     break;
                 default:
                     Log.i("scale","y...Integer");
-                    yplot= yNumber(Yaxis,canvas,length,breadth);
+                    yplot= yNumber(Yaxis,canvas,length,breadth,dec);
                     yc=2;
                     break;
             }
@@ -128,14 +167,17 @@ public class ScatterChartView extends View {
     }
     private void plot(ArrayList xaxis, ArrayList yaxis,  HashMap xplot, HashMap yplot, Canvas canvas, int xc, int yc) {
         int s=xaxis.size();
+
         if((xc==1)&&(yc==1)) { //X and Y String
             for (int j = 0; j < s; j++) {
                 String val1=(String) xaxis.get(j);
                 String val2=(String) yaxis.get(j);
                 Object xcc =  xplot.get(val1);
                 Object ycc =  yplot.get(val2);
-                canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
+
+                canvas.drawCircle((int) xcc, (int) ycc, 5, plot);
             }
+
         }
         if((xc==1)&&(yc==2)) {  //X String Y Float
             for (int j = 0; j < s; j++) {
@@ -147,7 +189,8 @@ public class ScatterChartView extends View {
                     String val1= (String) xaxis.get(j);
                     Object ycc =  yplot.get(new_value);
                     Object xcc =  xplot.get(val1);
-                    canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
+
+                    canvas.drawCircle((int) xcc, (int) ycc, 5, plot);
                 }
                 else {
                     float val;
@@ -186,9 +229,11 @@ public class ScatterChartView extends View {
                     val=(int)temp1+pixel_new;
                     String val1= (String) xaxis.get(j);
                     Object xcc_f =  xplot.get(val1);
-                    canvas.drawCircle((int)xcc_f,(int) val, 5, coordinate);
+
+                    canvas.drawCircle((int)xcc_f,(int) val, 5, plot);
                 }
             }
+
         }
         if((xc==2)&&(yc==1)) {   //X Number....Y String....//
             for (int j = 0; j < s; j++) {
@@ -201,7 +246,8 @@ public class ScatterChartView extends View {
                     String val2= (String) yaxis.get(j);
                     Object xcc =  xplot.get(new_value);
                     Object ycc =  yplot.get(val2);
-                    canvas.drawCircle((int) xcc, (int) ycc, 5, coordinate);
+
+                    canvas.drawCircle((int) xcc, (int) ycc, 5, plot);
                 }
                 else {
                     float val;
@@ -239,9 +285,11 @@ public class ScatterChartView extends View {
                     val=(int)temp1+pixel_new;
                     String val2= (String) yaxis.get(j);
                     Object ycc_f =  yplot.get(val2);
-                    canvas.drawCircle((int)val,(int) ycc_f, 5, coordinate);
+
+                    canvas.drawCircle((int)val,(int) ycc_f, 5, plot);
                 }
             }
+
         }
         if((xc==2)&&(yc==2)) {    //X And Y Number
             Object xcc_f,ycc_f;
@@ -347,14 +395,14 @@ public class ScatterChartView extends View {
                     float pixel_new= (float)((float)internal_distance_y*decimal_part_y) ;
                     val_y=(int)temp1_y+pixel_new;
                     ycc_f = (int)val_y;
-
-
                 }
-                canvas.drawCircle((int) xcc_f, (int)ycc_f, 5, coordinate);
+
+                canvas.drawCircle((int) xcc_f, (int)ycc_f, 5, plot);
             }
         }
+
     }
-    private HashMap yNumber(ArrayList Yaxis, Canvas canvas, int length, int breadth) {
+    private HashMap yNumber(ArrayList Yaxis, Canvas canvas, int length, int breadth,int dec) {
         //................Yarray Creation.........
         int yaxis[]=new int[Yaxis.size()];
         for(int i=0;i<Yaxis.size();i++) {
@@ -404,20 +452,28 @@ public class ScatterChartView extends View {
         Log.i("yyscale", String.valueOf(yscale));
         int yscale_count=yscale.size();
         //...........Horizontal Lines.................
-        int hxs = 100, hxst =breadth-100, hys =length-100, hyst =length-100;
-        int ysplit=((length-100)-100)/yscale_count;
-        for (int i = 0; i <=yscale_count; i++) {
-            canvas.drawLine(hxs, hys, hxst, hyst,plot);
+        int hxs = dec, hxst =breadth-dec, hys =length-dec, hyst =length-dec;
+        int ysplit=((length-dec)-dec)/yscale_count;
+        for (int i = 0; i <yscale_count; i++) {
+            canvas.drawLine(hxs, hys, hxst, hyst,lines);
             hys = hys -ysplit;
             hyst = hyst - ysplit;
         }
         //.............ypoint fixing and Yscale Printing................
-        int xstart=100;  int ystart=length-100-ysplit;
+        int xstart=dec;  int ystart=length-dec-ysplit;
         HashMap ypixel = new HashMap();
         for(int i=0;i<yscale_count;i++) {
             int count;
-            canvas.drawCircle(xstart, ystart, 5, paint);
-            canvas.drawText(String.valueOf((Integer) yscale.get(i)), xstart-60, ystart, axis);
+            canvas.drawCircle(xstart, ystart, 5, coordinate_point);
+            //...............Resizing the txt...............//
+            scale.setTextSize(130);
+            while(scale.measureText(String.valueOf(yscale.get(i)))>dec){
+                scale.setTextSize(scale.getTextSize()-1);
+            }
+            int Resize= (int) (scale.getTextSize()/2);
+            scale.setTextSize(Resize);
+            canvas.drawText(String.valueOf((int) yscale.get(i)), xstart-2*(scale.getTextSize()), ystart+5,scale);
+            //..................................................//
             ypixel.put(Float.parseFloat(String.valueOf(yscale.get(i))), ystart);
             int plot=(Integer) yscale.get(i);
             int temp_inc=ysplit/(yinc);
@@ -443,47 +499,64 @@ public class ScatterChartView extends View {
         Log.i("Xsize", String.valueOf(ypixel));
         return ypixel;
     }
-    private HashMap yString(ArrayList Yaxis, Canvas canvas, int length, int breadth) {
+    private HashMap yString(ArrayList Yaxis, Canvas canvas, int length, int breadth,int dec) {
         //...........Horizontal Lines.................
-        int hxs = 100, hxst =breadth-100, hys =length-100, hyst =length-100;
-        int ysplit=((length-100)-100)/Yaxis.size();
-        for (int i = 0; i <=Yaxis.size(); i++) {
-            canvas.drawLine(hxs, hys, hxst, hyst,plot);
+        int hxs = dec, hxst =breadth-dec, hys =length-dec, hyst =length-dec;
+        int ysplit=((length-dec)-dec)/Yaxis.size();
+        for (int i = 0; i <Yaxis.size(); i++) {
+            canvas.drawLine(hxs, hys, hxst, hyst,lines);
             hys = hys -ysplit;
             hyst = hyst - ysplit;
         }
         //.............Ypoint fixing and Yscale Printing...............
-        int xstart=100;  int ystart=length-100-ysplit;
+        int xstart=dec;  int ystart=length-dec-ysplit;
         HashMap ypixel = new HashMap();
         for(int i=0;i<Yaxis.size();i++) {
-            canvas.drawCircle(xstart, ystart, 5, paint);
-            canvas.drawText(String.valueOf(Yaxis.get(i)), xstart-90, ystart, axis);
+            canvas.drawCircle(xstart, ystart, 5, coordinate_point);
+            Log.i("Y", String.valueOf((Object) Yaxis.get(i)));
+            //...............Resizing the txt...............//
+            scale.setTextSize(130);
+            while(scale.measureText(String.valueOf(Yaxis.get(i)))>dec){
+                scale.setTextSize(scale.getTextSize()-1);
+            }
+            int Resize= (int) (scale.getTextSize()/2);
+            scale.setTextSize(Resize);
+            canvas.drawText(String.valueOf((int) Yaxis.get(i)), xstart-2*(scale.getTextSize()), ystart+5,scale);
+            //............................................................//
             ypixel.put(Yaxis.get(i), ystart);
             ystart=ystart-ysplit;
         }
         return ypixel;
     }
-    private HashMap xString(ArrayList Xaxis,Canvas canvas,int length,int breadth) {
+    private HashMap xString(ArrayList Xaxis,Canvas canvas,int length,int breadth,int dec) {
         //...........Vertical Lines...............
-        int vxs = 100, vxst =100, vys = 100, vyst = length-100;
-        int xsplit=((breadth-100)-100)/Xaxis.size();
-        for (int i = 0; i <=Xaxis.size(); i++) {
-            canvas.drawLine(vxs, vys, vxst, vyst, plot);
+        int vxs = dec, vxst =dec, vys = dec, vyst = length-dec;
+        int xsplit=((breadth-dec)-dec)/Xaxis.size();
+        for (int i = 0; i <Xaxis.size(); i++) {
+            canvas.drawLine(vxs, vys, vxst, vyst, lines);
             vxs = vxs + xsplit;
             vxst = vxst + xsplit;
         }
         //.............Xpoint fixing and Xscale Printing...............
-        int xstart=100+xsplit;int ystart=length-100;
+        int xstart=dec+xsplit;int ystart=length-dec;
         HashMap xpixel = new HashMap();
         for(int i=0;i<Xaxis.size();i++) {
-            canvas.drawCircle(xstart, ystart, 5, paint);
-            canvas.drawText( String.valueOf( Xaxis.get(i)), xstart, ystart+50,axis);
+            canvas.drawCircle(xstart, ystart, 5, coordinate_point);
+            //...............Resizing the txt...............//
+            scale.setTextSize(130);
+            while(scale.measureText(String.valueOf(Xaxis.get(i)))>xsplit){
+                scale.setTextSize(scale.getTextSize()-1);
+            }
+            int Resize= (int) (scale.getTextSize()/2);
+            scale.setTextSize(Resize);
+            canvas.drawText(String.valueOf((int) Xaxis.get(i)), xstart-(scale.getTextSize()), ystart+(dec/3),scale);
+            //..............................................//
             xpixel.put( Xaxis.get(i), xstart);
             xstart+=xsplit;
         }
         return  xpixel;
     }
-    private HashMap xNumber(ArrayList Xaxis,Canvas canvas,int length,int breadth) {
+    private HashMap xNumber(ArrayList Xaxis,Canvas canvas,int length,int breadth,int dec) {
         //.............Xarray Creation................
         int xaxisvalues[]=new int[Xaxis.size()];
         for(int i=0;i<Xaxis.size();i++) {
@@ -532,23 +605,32 @@ public class ScatterChartView extends View {
         Log.i("scale", String.valueOf(xscale));
         int xscale_count=xscale.size();
         //...........Vertical Lines...............
-        int vxs = 100, vxst =100, vys = 100, vyst = length-100;
-        int xsplit=((breadth-100)-100)/xscale_count;
+        int vxs = dec, vxst =dec, vys = dec, vyst = length-dec;
+        int xsplit=((breadth-dec)-dec)/xscale_count;
         Log.i("scale", String.valueOf(xsplit));
-        for (int i = 0; i <=xscale_count; i++) {
-            canvas.drawLine(vxs, vys, vxst, vyst, plot);
+        for (int i = 0; i <xscale_count; i++) {
+            canvas.drawLine(vxs, vys, vxst, vyst, lines);
             vxs = vxs + xsplit;
             vxst = vxst + xsplit;
         }
         //...........xpoint fixing and Xscale Printing...................
-        int xstart=100+xsplit;int ystart=length-100;
+        int xstart=dec+xsplit;int ystart=length-dec;
         HashMap xpixel = new HashMap();
         int temp_inc=(int) (xsplit)/(xinc);
         Log.i("tempinc", String.valueOf(temp_inc));
         for(int i=0;i<xscale_count;i++) {
             int count;
-            canvas.drawCircle(xstart, ystart, 5, paint);
-            canvas.drawText(String.valueOf((int) xscale.get(i)), xstart, ystart+50,axis);
+            canvas.drawCircle(xstart, ystart, 5, coordinate_point);
+
+            //...............Resizing the txt...............//
+            scale.setTextSize(130);
+            while(scale.measureText(String.valueOf(xscale.get(i)))>xsplit){
+                scale.setTextSize(scale.getTextSize()-1);
+            }
+            int Resize= (int) (scale.getTextSize()/2);
+            scale.setTextSize(Resize);
+            canvas.drawText(String.valueOf((int) xscale.get(i)), xstart-(scale.getTextSize()), ystart+(dec/3),scale);
+            //.....................................................//
             xpixel.put(Float.parseFloat(String.valueOf(xscale.get(i))), xstart);
             int plot=( int) xscale.get(i);
             if(temp_inc!=0) {
@@ -599,4 +681,5 @@ public class ScatterChartView extends View {
         }
         return count;
     }
+
 }

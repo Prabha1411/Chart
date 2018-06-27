@@ -48,8 +48,8 @@ public class PieChartView extends View{
             int y= canvas.getHeight()-z;
             RectF rectF = new RectF(z,z,x,y);
             RectF rectF1=new RectF(w,w,x+w,y+w);
-            for(int i=0;i<pieChartData.getTeam().size();++i){
-                paint.setColor(Color.parseColor(String.valueOf(pieChartData.getTeam().get(i).getColour())));
+            for(int i=0;i<pieChartData.getData().size();++i){
+                paint.setColor(Color.parseColor(String.valueOf(pieChartData.getData().get(i).getColour())));
                 Path p2=new Path();
                 canvas.drawArc(rectF, start, sweep[i], true, paint);
                 p2.addArc(rectF,start,sweep[i]);
@@ -60,14 +60,14 @@ public class PieChartView extends View{
                 paint.setColor(Color.BLACK);
                 paint.setTextSize(getWidth() / 25);
                 paint.setTextAlign(Paint.Align.CENTER);
-                String name = String.valueOf(pieChartData.getTeam().get(i).getName());
+                String name = String.valueOf(pieChartData.getData().get(i).getX());
                 if (paint.measureText(name) > pathLength) {
                     while (paint.measureText(name) < pathLength) {
                         name = name.substring(0, name.length() - 1);
                     }
                     canvas.drawTextOnPath(name.substring(0, name.length() - 3).concat("..."), p, 0, 0, paint);
                 } else {
-                    canvas.drawTextOnPath(String.valueOf(pieChartData.getTeam().get(i).getName()), p, 0, 0, paint);
+                    canvas.drawTextOnPath(String.valueOf(pieChartData.getData().get(i).getX()), p, 0, 0, paint);
                 }
                 start += sweep[i];
             }
@@ -77,17 +77,17 @@ public class PieChartView extends View{
         }
     }
     private float[] scale() {
-        float[] sweep=new float[pieChartData.getTeam().size()];
+        float[] sweep=new float[pieChartData.getData().size()];
         float total = getTotal();
-        for(int i=0;i<pieChartData.getTeam().size();i++){
-            sweep[i] = (Float.parseFloat(String.valueOf(pieChartData.getTeam().get(i).getMatches())) /total) * 360;
+        for(int i=0;i<pieChartData.getData().size();i++){
+            sweep[i] = (Float.parseFloat(String.valueOf(pieChartData.getData().get(i).getY())) /total) * 360;
         }
         return sweep;
     }
     private float getTotal(){
         float total = 0;
-        for(int i=0;i<pieChartData.getTeam().size();i++) {
-            float val= Float.parseFloat(String.valueOf(pieChartData.getTeam().get(i).getMatches()));
+        for(int i=0;i<pieChartData.getData().size();i++) {
+            float val= Float.parseFloat(String.valueOf(pieChartData.getData().get(i).getY()));
             total += val;
         }
         return total;

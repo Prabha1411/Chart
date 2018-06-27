@@ -70,9 +70,9 @@ public class DonutChartView extends View {
             currentStartArcPosition=0f;
             int sweepCount=0;
 
-            for (int i = 0; i < data.getField().size(); i++) {
-                paint.setColor(Color.parseColor(String.valueOf(data.getField().get(i).getField_color())));
-                currentSweep = (data.getField().get(i).getField_value() / totalValues) * 360;
+            for (int i = 0; i < data.getData().size(); i++) {
+                paint.setColor(Color.parseColor(String.valueOf(data.getData().get(i).getColour())));
+                currentSweep = (data.getData().get(i).getY() / totalValues) * 360;
                 float currentArc = currentStartArcPosition;
                 rect.set(midx - radius +(data.getWidth()/2f), midy - radius+(data.getWidth()/2f) , midx + radius-(data.getWidth()/2f), midy + radius-(data.getWidth()/2f));
                 for (float sweep = 1; sweep <= currentSweep; sweep++) {
@@ -96,12 +96,12 @@ public class DonutChartView extends View {
                     PathMeasure pm=new PathMeasure(p1,false);
 
                     textPaint.setColor(Color.BLACK);
-                    textSizeCalcualtor(data.getField().get(i).getField_name(),pm,data.getWidth()/4);
-                    canvas.drawTextOnPath(data.getField().get(i).getField_name(),p1,(int)(pm.getLength()-textPaint.measureText(data.getField().get(i).getField_name()))/2,-data.getWidth()/5,textPaint);
+                    textSizeCalcualtor(data.getData().get(i).getX(),pm,data.getWidth()/4);
+                    canvas.drawTextOnPath(data.getData().get(i).getX(),p1,(int)(pm.getLength()-textPaint.measureText(data.getData().get(i).getX()))/2,-data.getWidth()/5,textPaint);
 
                     textPaint.setColor(Color.RED);
-                    textSizeCalcualtor(String.valueOf(data.getField().get(i).getField_value()),pm,data.getWidth()/4);
-                    canvas.drawTextOnPath(String.valueOf(data.getField().get(i).getField_value()),p1,(int)(pm.getLength()-textPaint.measureText(String.valueOf(data.getField().get(i).getField_value())))/2,data.getWidth()/4,textPaint);
+                    textSizeCalcualtor(String.valueOf(data.getData().get(i).getY()),pm,data.getWidth()/4);
+                    canvas.drawTextOnPath(String.valueOf(data.getData().get(i).getY()),p1,(int)(pm.getLength()-textPaint.measureText(String.valueOf(data.getData().get(i).getY())))/2,data.getWidth()/4,textPaint);
                     p1.close();
                 }
                 currentStartArcPosition=currentStartArcPosition+currentSweep;
@@ -142,8 +142,8 @@ public class DonutChartView extends View {
         data=donutGraphData;
         postInvalidate();
         totalValues=0;
-        for(int i=0;i<data.getField().size();i++){
-            totalValues+=data.getField().get(i).getField_value();
+        for(int i=0;i<data.getData().size();i++){
+            totalValues+=data.getData().get(i).getY();
         }
         init(null);
     }

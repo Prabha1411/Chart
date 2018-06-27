@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ScatterChartData extends AxisChartData implements Serializable {
+public class ScatterChartData extends AxisChartData implements Serializable{
 
-    public ScatterChartData(Point datas, ArrayList label, ArrayList colours) {
-        super(datas, label, colours);
-    }
+
 }

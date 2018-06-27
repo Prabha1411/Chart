@@ -1,23 +1,35 @@
 {
-  "plot": [
+  "xaxisplot": [
     {
-      "xaxis_point": "1996",
+      "xaxis_point": "1996"
+    },
+    {
+      "xaxis_point": "2019"
+    },
+    {
+      "xaxis_point": "2010"
+    },
+    {
+      "xaxis_point": "2003"
+    },
+    {
+      "xaxis_point": "2015"
+    }
+  ],
+  "yaxisplot": [
+    {
       "yaxis_points": "30"
     },
     {
-      "xaxis_point": "2019",
       "yaxis_points": "80"
     },
     {
-      "xaxis_point": "2010",
       "yaxis_points": "200"
     },
     {
-      "xaxis_point": "2003",
       "yaxis_points": "99"
     },
     {
-      "xaxis_point": "2015",
       "yaxis_points": "150"
     }
   ],
@@ -49,9 +61,6 @@
       "color": "#510602"
     }
   ],
-  "Barwidth": [
-    {
-      "width":"10"
-    }
-  ]
+  "barwidth": "10"
+
 }

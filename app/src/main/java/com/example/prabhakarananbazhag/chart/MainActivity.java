@@ -27,8 +27,8 @@ Button b1,b2,b3,b4,b5;
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent i = new Intent(getApplicationContext(),BarChartActivity.class);
-              //  startActivity(i);
+                Intent i = new Intent(getApplicationContext(),BarChartActivity.class);
+               startActivity(i);
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ Button b1,b2,b3,b4,b5;
             }
         });
 
-        Point k=new Point();
+
 
 
     }

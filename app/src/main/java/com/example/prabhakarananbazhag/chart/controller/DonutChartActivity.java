@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.prabhakarananbazhag.chart.R;
 import com.example.prabhakarananbazhag.chart.model.DonutChartData;
-import com.example.prabhakarananbazhag.chart.model.PieChartData;
 import com.example.prabhakarananbazhag.chart.view.DonutChartView;
 import com.google.gson.Gson;
 
@@ -23,11 +22,8 @@ public class DonutChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donut_chart_activity);
         DonutChartView view = (DonutChartView) findViewById(R.id.donut_graph);
-
-            view.setDonutGraphValues(getjson());
-
-            view.start(getjson().getField().size());
-
+        view.setDonutGraphValues(getjson());
+        view.start(getjson().getData().size());
     }
 
     private static String getValue(String tag, Element element) {
@@ -44,67 +40,22 @@ public class DonutChartActivity extends AppCompatActivity {
         return px / context.getResources().getDisplayMetrics().density;
     }
 
-  /*  public DonutChartData getjson() {
-        List<Float> percentage = new ArrayList<>();
-        List<String> fieldname = new ArrayList<>();
-        List<Integer> colors = new ArrayList<>();
-
-        DonutChartData donutGraphData = null;
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset());
-            // JSONObject m_jobj=obj.getJSONObject("donut_graph");
-            // donutGraphData.setDonutWidth(m_jobj.getInt("donut_width"));
-            JSONArray m_jArry = obj.getJSONArray("field");
-
-            for (int i = 0; i < m_jArry.length(); i++) {
-                JSONObject jo_inside = m_jArry.getJSONObject(i);
-                String name = jo_inside.getString("field_name");
-                int value = jo_inside.getInt("field_value");
-                String color = jo_inside.getString("field_color");
-                percentage.add(Float.valueOf(value));
-                fieldname.add(name);
-                colors.add((Color.parseColor(color)));
-            }
-            donutGraphData = new DonutChartData(obj.getInt("width"), percentage, fieldname, colors);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return donutGraphData;
-    }
-
-    public String loadJSONFromAsset() {
+    public DonutChartData getjson()  {
         String json = null;
         try {
-            InputStream is = getAssets().open("donut_graph.json");
-            int size = is.available();
+            InputStream inputStream = getAssets().open("Pie.json");
+            int size = inputStream.available();
             byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
+            inputStream.read(buffer);
+            inputStream.close();
             json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return json;
-    }
-*/
-  public DonutChartData getjson()  {
-  String json = null;
-        try {
-        InputStream inputStream = getAssets().open("donut_graph.json");
-        int size = inputStream.available();
-        byte[] buffer = new byte[size];
-        inputStream.read(buffer);
-        inputStream.close();
-        json = new String(buffer, "UTF-8");
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    Gson gson=new Gson();
-    DonutChartData bar = gson.fromJson(json,DonutChartData.class);
+        Gson gson=new Gson();
+        DonutChartData bar = gson.fromJson(json,DonutChartData.class);
         return bar;
 
 
-}
+    }
 }
