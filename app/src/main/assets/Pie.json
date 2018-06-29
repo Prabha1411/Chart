@@ -7,14 +7,14 @@
         "colour": "#0F8BFE"
       },
       {
-        "x": "RSA",
+        "x": "SouthAfrica",
         "y": 50,
         "colour": "#05F52D"
       },
       {
         "x": "Australia",
-        "y": 20,
-        "colour": "#F8ED06"
+        "y": 15,
+        "colour": "#FA0F08"
       },
       {
         "x": "Pakistan",
@@ -27,13 +27,18 @@
         "colour": "#0611F8"
       },
       {
+        "x": "Afghanistan",
+        "y": 70,
+        "colour": "#051423"
+      },
+      {
         "x": "West Indies",
         "y": 50,
         "colour": "#510602"
       },
       {
-        "x": " Indies",
-        "y": 50,
+        "x":"Serbia",
+        "y": 90,
         "colour": "#850602"
       }
     ]

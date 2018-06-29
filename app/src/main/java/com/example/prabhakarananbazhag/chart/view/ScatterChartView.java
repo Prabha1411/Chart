@@ -1,4 +1,5 @@
 package com.example.prabhakarananbazhag.chart.view;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import com.example.prabhakarananbazhag.chart.model.BarChartData;
@@ -19,6 +21,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.concurrent.TimeUnit;
+
 public class ScatterChartView extends View {
     Paint lines=new Paint();
     Paint plot = new Paint();
@@ -26,9 +30,14 @@ public class ScatterChartView extends View {
     Paint coordinate_point = new Paint();
     Paint labels = new Paint();
     Paint paint=new Paint();
+    public ValueAnimator mTimerAnimator;
+    int no_of_iteration=0;
+
 
     public ScatterChartView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+
     }
     public ScatterChartView(Context context) {
         super(context);
@@ -102,7 +111,12 @@ public class ScatterChartView extends View {
             path.moveTo(length-(2*size),length/2);
             path.lineTo(length-50,length/2-100);
             canvas.drawPath(path, labels);
-            canvas.drawTextOnPath((String) Labels.get(2),path,0,0,labels);
+
+
+          //  canvas.drawTextOnPath((String) Labels.get(2),path,0,0,labels);
+
+          // canvas.rotate(90);
+         //  canvas.drawText((String)Labels.get(2),50,50,labels);
             //...............Rectangle Creation..............
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.STROKE);
@@ -681,5 +695,16 @@ public class ScatterChartView extends View {
         }
         return count;
     }
+   /* public void start(int secs) {
+        mTimerAnimator.setIntValues(0);
+        mTimerAnimator.setDuration(TimeUnit.SECONDS.toMillis(secs));
+        mTimerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                no_of_iteration=(int)animation.getAnimatedValue();
+                invalidate();
+            }});
+        mTimerAnimator.start();
+    }*/
 
 }

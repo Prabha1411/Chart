@@ -36,7 +36,7 @@ public class LineChartActivity extends AppCompatActivity{
     public LineChartData getjson() throws JSONException {
         String json = null;
         try {
-            InputStream inputStream = getAssets().open("Linedetails.json");
+            InputStream inputStream = getAssets().open("Bar.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);

@@ -29,7 +29,7 @@ public class ScatterChartActivity extends AppCompatActivity {
     public ScatterChartData getjson() throws JSONException {
         String json = null;
         try {
-            InputStream inputStream = getAssets().open("Scatter.json");
+            InputStream inputStream = getAssets().open("Bar.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);

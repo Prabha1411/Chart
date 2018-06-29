@@ -14,32 +14,17 @@ public class PieChartData  implements ChartData, Serializable{
     }
   public class Data {
         public String x;
-
+        public Integer y;
+        public String  colour;
       public String getX() {
           return x;
       }
-
-      public void setX(String x) {
-          this.x = x;
-      }
-
-      public Float getY() {
+      public Integer getY() {
           return y;
       }
-
-      public void setY(Float y) {
-          this.y = y;
-      }
-
       public String getColour() {
           return colour;
       }
 
-      public void setColour(String colour) {
-          this.colour = colour;
-      }
-
-      public Float y;
-        public String  colour;
     }
 }
