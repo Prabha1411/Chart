@@ -695,16 +695,5 @@ public class ScatterChartView extends View {
         }
         return count;
     }
-   /* public void start(int secs) {
-        mTimerAnimator.setIntValues(0);
-        mTimerAnimator.setDuration(TimeUnit.SECONDS.toMillis(secs));
-        mTimerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                no_of_iteration=(int)animation.getAnimatedValue();
-                invalidate();
-            }});
-        mTimerAnimator.start();
-    }*/
-
+   
 }
